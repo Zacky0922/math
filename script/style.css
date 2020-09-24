@@ -1,3 +1,5 @@
+@import "./activeMenu.css";
+
 .navbar .navbar-text{
     margin-right:10px;
 }

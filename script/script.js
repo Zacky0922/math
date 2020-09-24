@@ -1,5 +1,5 @@
 // import;
-
+//import { } from "../../";
 
 
 
@@ -12,8 +12,23 @@ export class BSnavbar {
         this.nav = document.createElement("nav");
         this.nav.classList.add("navbar", "navbar-expand-sm", "navbar-dark", "bg-dark");
         // responsive対応：breakpoint=sm
-        this.nav.setAttribute("style", "position:sticky;top:0;z-index:1030;");
+        this.nav.setAttribute("style", "position:sticky;bottom:0;z-index:1030;");
         // ※本来は"fixed-top"クラスで対応するが、stickyの方がmargin管理が楽
+
+        // 要素代入
+        /*
+        // 先頭に代入
+        if (parent == null) {
+            document.body.insertBefore(
+                this.nav, document.body.children[0]
+            );
+        } else {
+            document.getElementById(parent).insertBefore(
+                this.nav, document.getElementById(parent).children[0]
+            );
+        }
+        */
+        document.body.appendChild(this.nav);    //最後に追加
 
         // 見出し
         let a = document.createElement("a");
@@ -45,16 +60,6 @@ export class BSnavbar {
         menu_box.appendChild(this.menu_wrap);
         this.nav.appendChild(menu_box);
 
-        // 要素代入先
-        if (parent == null) {
-            document.body.insertBefore(
-                this.nav, document.body.children[0]
-            );
-        } else {
-            document.getElementById(parent).insertBefore(
-                this.nav, document.getElementById(parent).children[0]
-            );
-        }
     }
 
     addMenu(tx, link) {
