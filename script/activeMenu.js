@@ -14,7 +14,7 @@
 export class activeMenu {
     constructor(id) {
         //  リスト作成
-        let f = this.getHeads(id);
+        let f = this.getHeads;
         $(window).on('load', function () {
             f(id);
         });
