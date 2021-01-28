@@ -10,88 +10,87 @@
     <meta name="robots" content="noindex,nofollow" />
 
     <!-- master -->
+    <!--
     <script type="module" src="./script/script.js"></script>
     <link rel="stylesheet" href="./script/style.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+            integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+            integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+            crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+            integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+            crossorigin="anonymous"></script>
+
+    -->
     <!-- ここに本文を記述します -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-        integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
-        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
-        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
 
 
-    <title>INDEX</title>
+    <title>資料置き場</title>
 </head>
 
 <body>
-    <!-- menu -->
-    <script type="module">
-        import { setBSnavbar } from "./script/script.js";
-        setBSnavbar();
-    </script>
+    <section>
+        <h3>データの分析</h3>
+        <div class="tableWrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>項目</th>
+                        <th>説明</th>
+                    </tr>
+                </thead>
+                <tbody id="dataTableBody"></tbody>
+            </table>
+        </div>
+        <script>
 
-    <style>
+            $.ajax({
+                type: "GET", async: false,
+                url: "https://script.google.com/macros/s/AKfycbx5s8sAi88B44_F8etE8a86E2XuYke3ZbN2vakKueegEN-vEDFahK1WRg/exec?list=math_data"
+            }).then(
+                // 通信success
+                data => {
+                    console.log("Ajax通信success");
+                    console.log(data);
+                    /*
+                    for (let i in data) {
+                      for (let j in data[i]) {
+                        console.log(j + " : " + data[i][j] + "\n")
+                      }
+                    }
+                    */
+                    let tbl = document.getElementById("dataTableBody");
+                    for (let i = 0; i < data.length; i++) {
+                        if (data[i].disabled == "disabled" || data[i].category != "統計") {
+                            continue;
+                        }
+                        let tr = document.createElement("tr");
+                        let th = document.createElement("th");
+                        let a = document.createElement("a");
+                        a.href = data[i].href;
+                        a.target = "_blank";
+                        a.innerText = data[i].title;
+                        let td = document.createElement("td");
+                        td.innerText = data[i].description;
+                        th.appendChild(a);
+                        tr.appendChild(th);
+                        tr.appendChild(td);
+                        tbl.appendChild(tr);
+                    }
+                },
+                // 通信error
+                error => {
+                    console.log("Ajax通信error");
+                    console.log(error);
+                }
+            );
 
-    </style>
-    <section class="container">
-        <section class="row">
-            <section class="col zTitle">
-                タイトル
-            </section>
-        </section>
-        <section class="row">
-            <section class="col-lg-3 order-lg-1">
-                <div class="box" style="position: sticky;top:0;">
-                    <div id="activeMenu">
-                        <h3 class="noList">めぬー</h3>
-                    </div>
-                    <script type="module">
-                        import { activeMenu } from "./script/activeMenu.js";
-                        new activeMenu("activeMenu");
-                    </script>
-                </div>
-            </section>
-            <section class="col-lg-9 order-lg-0">
-                <div class="box">
-                    <h3>ああ</h3>
-                    あめんぼあかいなあいうえお
-                    <div style="height:500px"></div>
-                </div>
-                <div>
-                    <h3>単元別解説</h3>
 
-                </div>
-                <div class="box">
-                    <h3>見出し3</h3>
-                    <h4>見出し3.1</h4>
-                    <h5>見出し3.1.1</h5>
-                    <h5>見出し3.1.2</h5>
-                    <h4>見出し3.2</h4>
-                    <h5>見出し3.2.1</h5>
-                    <h5>見出し3.2.2</h5>
-                    さしすせそ
-                    <div style="height:500px"></div>
-                </div>
-                <div class="box">
-                    <h3>見出し4</h3>
-                    かきくけこ
-                    <div style="height:500px"></div>
-                </div>
-                <div class="box">
-                    <h3>見出し5</h3>
-                    かきくけこ
-                    <div style="height:500px"></div>
-                </div>
-            </section>
-        </section>
+        </script>
     </section>
-
 </body>
 
 </html>
